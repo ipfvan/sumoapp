@@ -1,0 +1,105 @@
+import React, { useState } from 'react';
+import Resepsionis from './Resepsionis';
+import ObatObatan from './obat-obatan/ObatObatan';
+import KeperluanTindakan from './KeperluanTindakan';
+import CelanaKaos from './celana-kaos/CelanaKaos';
+import Klamp from './Klamp';
+import Stapler from './Stapler';
+import LainLain from './LainLain';
+
+const DataLogistik = () => {
+  const [activeTab, setActiveTab] = useState(1);
+
+  const handleTabChange = (tabNumber) => {
+    setActiveTab(tabNumber);
+  };
+
+  return (
+    <div className="w-full mx-auto">
+        <div className="w-full max-w-5xl mx-auto">
+      <div className="mb-5 flex justify-center flex-row flex-wrap whitespace-nowrap">
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 1 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(1)}
+        >
+          Resepsionis
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 2 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(2)}
+        >
+          Obat - Obatan
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 3 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(3)}
+        >
+          Keperluan Tindakan
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 4 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(4)}
+        >
+          Celana & Kaos
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 5 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(5)}
+        >
+          Klamp
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 6 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(6)}
+        >
+          Stapler
+        </button>
+        <button
+          className={` inline-block px-7 py-2 text-center ${activeTab === 7 ? 'border-purple-800 text-purple-900 my-2 block border-x-0 border-b-2 border-t-0 pb-3.5 pt-4 text-sm font-medium uppercase leading-tight' : 'border-transparent text-neutral-500'}`}
+          onClick={() => handleTabChange(7)}
+        >
+          Lain Lain
+        </button>
+      </div>
+      </div>
+        {/* Tab content */}
+        {activeTab === 1 && (
+          <div className="w-full">
+            <Resepsionis /> {/* Display content of Logistik file */}
+          </div>
+        )}
+        {activeTab === 2 && (
+          <div className="w-full">
+            <ObatObatan /> {/* Display content of Logistik file */}
+          </div>
+        )}
+        {activeTab === 3 && (
+          <div className="w-full">
+            <KeperluanTindakan /> {/* Display content of Logistik file */}
+          </div>
+        )}
+         {activeTab === 4 && (
+          <div className="w-full">
+            <CelanaKaos /> {/* Display content of Logistik file */}
+          </div>
+        )}
+        {activeTab === 5 && (
+          <div className="w-full">
+            <Klamp /> {/* Display content of Logistik file */}
+          </div>
+        )}
+         {activeTab === 6 && (
+          <div className="w-full">
+            <Stapler /> {/* Display content of Logistik file */}
+          </div>
+        )}
+        {activeTab === 7 && (
+          <div className="w-full">
+            <LainLain /> {/* Display content of Logistik file */}
+          </div>
+        )}
+      </div>
+  );
+};
+
+export default DataLogistik;
