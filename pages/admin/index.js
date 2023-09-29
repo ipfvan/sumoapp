@@ -50,7 +50,7 @@ export default function AdminHome() {
     const ciledugauthenticated = document.cookie.includes('myUsername=ciledug');
     const pamulangauthenticated = document.cookie.includes('myUsername=pamulang');
 
-    const socket = io('http://localhost:3001')
+    const socket = io('http://85.31.233.73:3001/')
    
     if (cibinongauthenticated){
     
