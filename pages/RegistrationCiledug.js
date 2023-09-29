@@ -4,9 +4,14 @@ import axios from 'axios';
 import { formatTanggal , formatJam } from './utils/LocalDateTime';
 import { FaCheck, FaCheckCircle , FaCircle , FaCircleNotch } from 'react-icons/fa';
 import io from 'socket.io-client';
+import LoadingJam from './LoadingJam';
+import LoadingDaftar from './LoadingDaftar';
 
 
 const RegistrationCiledug = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDaftar, setIsLoadingDaftar] = useState(false);
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [availableTime, setAvailableTime] = useState('');
   const [tanggalDaftar, setTanggalDaftar] = useState(new Date().toISOString().split('T')[0]);
@@ -16,16 +21,14 @@ const RegistrationCiledug = () => {
     const selectedDateString = event.target.value;
   
     console.log('Selected Date:', selectedDateString);
+
+    setIsLoading(true);
   
     try {
-      const response = await axios.get(`/api/ciledug/main/available-times?tanggal=${selectedDateString}`);
+      const response = await axios.get(`/api/ciledug/available-times?tanggal=${selectedDateString}`);
       setAvailableTime(response.data.availableTime);
   
       console.log('Response:', response.data);
-  
-      if (response.data.message) {
-        alert(response.data.message);
-      }
   
       setSelectedDate(selectedDateString);
   
@@ -45,55 +48,82 @@ const RegistrationCiledug = () => {
         availableTimeInMinutes < currentTime
       ) {
         setShowRemainingFields(false);
+        alert('Untuk daftar dadakan hari ini, silahkan hubungi tim SUNAT MODERN lewat whatsapp ya');
       } else if (selectedDateString < currentDateTime.toISOString().split('T')[0]) {
           setShowRemainingFields(false);
+          alert('Tanggal yang anda pilih sudah lewat, silahkan pilih tanggal lainnya');
       } else if (availableTimeInMinutes >= maxRegistrationTimeInMinutes) {
+        alert(`Jadwal untuk Tanggal ${formatTanggal(selectedDateString)} sepertinya sudah penuh, coba pilih tanggal lainnya`);
         setShowRemainingFields(false);
-      } else {
+      } else if (response.data.availableTime >= response.data.breakStartTime && response.data.availableTime < response.data.breakEndTime) {
         setShowRemainingFields(true);
-      }
+        alert(`Jam yang tersedia untuk Tanggal ${formatTanggal(selectedDateString)} adalah jam ${formatJam(response.data.breakEndTime)}`);
+        setAvailableTime(response.data.breakEndTime)
+    } else {
+      setShowRemainingFields(true);
+      alert(`Jam yang tersedia untuk Tanggal ${formatTanggal(selectedDateString)} adalah jam ${formatJam(response.data.availableTime)}`);
+  }
     } catch (error) {
       console.error('Error fetching available times: ', error);
+    } finally {
+      setIsLoading(false); // Set isLoading menjadi false setelah selesai fetch data
     }
+    
   };
   
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
-
   
   const handleAgreeTerms = async (event) => {
     event.preventDefault();
-    setShowTermsModal(false); // Tutup modal ketentuan
+    setShowTermsModal(true); // Tutup modal ketentuan
   
     // Lanjutkan dengan mengirimkan data jika pengguna setuju
     const formData = new FormData(event.target);
     formData.append('tanggal_daftar', tanggalDaftar);
     const data = {
       tanggal_daftar: new Date(),
-      tanggal: formData.get('tanggal'),
-      jam: availableTime,
-      nama: formData.get('nama'),
-      usia: formData.get('usia'),
-      orang_tua: formData.get('orang_tua'),
-      anatomi: formData.get('anatomi'),
-      metode_sunat: formData.get('metode_sunat'),
-      metode_bius: formData.get('metode_bius'),
-      no_telp : formData.get('no_telp'),
-      alamat: formData.get('alamat'),
-      keterangan: formData.get('keterangan'),
+      tanggal: formData.get('tanggal') || '---',
+      jam: formData.get('jam') || '---',
+      nama: formData.get('nama') || '---',
+      usia: formData.get('usia') || '---',
+      orang_tua: formData.get('orang_tua') || '---',
+      metode_sunat: formData.get('metode_sunat') || '---',
+      anatomi: formData.get('anatomi') || '---',
+      metode_bius: formData.get('metode_bius') || '---',
+      no_telp: formData.get('no_telp') || '---',
+      alamat: formData.get('alamat') || '---',
+      keterangan: formData.get('keterangan') || '---',
       status: 'Daftar Online',
+    dokter_praktik: '---', 
+    goody_bag_p: '---',
+    nacl_p: '---',
+    butbut_p: '---',
+    tumblr_p: '---',
+    kaos_p: '---',
+    celana_p: '---',
+    nyeri_p: '---',
+    antibiotik_p: '---',
+    bengkak_p: '---',
+    supp_p: '---',
+    klamp_p: '---',
+    stapler_p: '---',
     };
     // ...
-  
+    if (showTermsModal === true) {
+      setIsLoadingDaftar(true)
     try {
-      await axios.post('/api/ciledug/main/pasien', data);
-  
-      const socket = io('http://192.168.1.6:3001');
-      socket.emit('playAudio2');
-      socket.emit('newPatientRegistered', data);
-  
+      axios.post('/api/ciledug/pasien', data)
+
+      const socket = io('http://192.168.1.5:3001');
+      const notificationData = {
+        title: 'Pendaftaran Pasien Baru',
+        body: 'Pasien baru telah terdaftar.',
+      };
+      socket.emit('sendNotification2', notificationData);
+      console.log('Pesan notifikasi dikirim ke server.');
       try {
-        await axios.post('/api/ciledug/main/notifications', {
+        await axios.post('/api/ciledug/notifications', {
           nama: data.nama,
           jam: data.jam,
           tanggal: data.tanggal,
@@ -108,32 +138,15 @@ const RegistrationCiledug = () => {
       event.target.reset();
       setSelectedDate(null);
       setShowRemainingFields(false);
+      setShowTermsModal(false);
     } catch (error) {
       console.error('Error submitting form: ', error);
       alert('Terjadi kesalahan saat mengirimkan pendaftaran.');
+    } finally {
+      setIsLoadingDaftar(false);
     }
+  }
   };
-
-
-
-    const handleFormSubmit = async (event) => {
-      event.preventDefault();
-    
-      // ...
-    
-      try {
-        // ...
-    
-        // Menampilkan modal ketentuan
-        setShowTermsModal(true);
-      } catch (error) {
-        console.error('Error submitting form: ', error);
-        alert('Terjadi kesalahan saat mengirimkan pendaftaran.');
-      }
-    };
-
-
-
 
 
   const [fadeIn, setFadeIn] = useState(false);
@@ -153,7 +166,7 @@ const RegistrationCiledug = () => {
   useEffect(() => {
     const fetchMetodeSunatOptions = async () => {
       try {
-        const response = await axios.get('/api/ciledug/main/metode-sunat');
+        const response = await axios.get('/api/ciledug/metode-sunat');
         setMetodeSunatOptions(response.data.metodeSunatOptions);
       } catch (error) {
         console.error('Error fetching metode sunat options: ', error);
@@ -167,7 +180,7 @@ const RegistrationCiledug = () => {
   useEffect(() => {
     const fetchMetodeBiusOptions = async () => {
       try {
-        const response = await axios.get('/api/ciledug/main/metode-bius');
+        const response = await axios.get('/api/ciledug/metode-bius');
         setMetodeBiusOptions(response.data.metodeBiusOptions);
       } catch (error) {
         console.error('Error fetching metode bius options: ', error);
@@ -178,8 +191,18 @@ const RegistrationCiledug = () => {
   }, []);
 
   return (
+    <div>
+    {isLoadingDaftar ? (
+      // Tampilkan komponen Loading selama isLoading adalah true
+      <LoadingDaftar />
+    ) : (
+    <div>
+    {isLoading ? (
+      // Tampilkan komponen Loading selama isLoading adalah true
+      <LoadingJam />
+    ) : (
 <div>
-<h2 className="text-2xl font-bold mb-2 text-customPurple">Form Pendaftaran Cabang Ciledug</h2>
+<h2 className="text-2xl font-bold mb-2 text-customPurple">Form Pendaftaran Cabang Cibinong</h2>
       <p className='text-customPurple font-semibold mb-5'>Jl Raya Cikaret no.32</p>
 <form onSubmit={handleAgreeTerms} className="space-y-4 relative">
 <div
@@ -301,7 +324,7 @@ const RegistrationCiledug = () => {
             <div className="form-group">
               <label htmlFor="usia">Usia</label>
               <input
-                type="number"
+                type="text"
                 id="usia"
                 name="usia"
                 required
@@ -346,7 +369,7 @@ const RegistrationCiledug = () => {
     ))}
     </select>
 
-        <p class="text-sm italic mb-7">
+        <p className="text-sm italic mb-7">
                       (Untuk anak gemuk silahkan pilih Sumo Khusus.)
                     </p>
       </div>
@@ -386,8 +409,8 @@ const RegistrationCiledug = () => {
         />
       </div>
       <button
-       className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-10 "
-        onClick={handleFormSubmit}
+        type="submit"
+        className="bg-customPurple text-white px-4 py-2 rounded hover:bg-blue-600 mb-10 mr-2"
       >
         Daftar
       </button>
@@ -396,7 +419,11 @@ const RegistrationCiledug = () => {
       )}
       
       </form>
-      </div>          
+      </div>  
+          )}
+          </div>
+                    )}
+                    </div>         
   );
 };
 

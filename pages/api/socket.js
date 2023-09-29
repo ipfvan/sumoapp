@@ -20,37 +20,25 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('A user connected');
 
-  socket.on('playAudio', () => {
-    io.emit('startAudio'); // Broadcast command to start audio
+  socket.on('sendNotification', (notificationData) => {
+    io.emit('sendNotification', notificationData);
+    console.log('Pesan notifikasi diterima dari regis.js dan disiarkan ke semua klien.'); // Broadcast patient registration log
   });
 
-  socket.on('stopAudio', () => {
-    io.emit('stopAudio'); // Broadcast command to stop audio
+  socket.on('sendNotification2', (notificationData) => {
+    io.emit('sendNotificatio2', notificationData);
+    console.log('Pesan notifikasi diterima dari regis.js dan disiarkan ke semua klien.');
+ // Broadcast patient registration log
   });
 
-  socket.on('playAudio2', () => {
-    io.emit('startAudio2'); // Broadcast command to start audio
+  socket.on('sendNotification3', (notificationData) => {
+    io.emit('sendNotification3', notificationData);
+    console.log('Pesan notifikasi diterima dari regis.js dan disiarkan ke semua klien.'); // Broadcast patient registration log
   });
-
-  socket.on('stopAudio2', () => {
-    io.emit('stopAudio2'); // Broadcast command to stop audio
-  });
-
-  socket.on('playAudio3', () => {
-    io.emit('startAudio3'); // Broadcast command to start audio
-  });
-
-  socket.on('stopAudio3', () => {
-    io.emit('stopAudio3'); // Broadcast command to stop audio
-  });
-
-
+  
   socket.on('disconnect', () => {
     console.log('User disconnected');
     
-  });
-  socket.on('newPatientRegistered', (patientData) => {
-    io.emit('newPatientLog', patientData); // Broadcast patient registration log
   });
 });
 

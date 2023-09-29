@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import RegistrationCibinong from './RegistrationCibinong';
 import RegistrationCiledug from './RegistrationCiledug';
 import RegistrationPamulang from './RegistrationPamulang';
+import Image from 'next/image';
 
 export default function Home() {
 
@@ -111,10 +112,10 @@ export default function Home() {
   </div>
 </div>
       
-      <img src="/shield.png" alt="Waves SVG" className='w-3/4 ml-10' />
+      <Image src="/shield.png" width={500} height={500} alt="Waves SVG" className='p-5 mx-auto' />
 
-      <div className="bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
-  <ul className='text-center text-customPurple'>
+      <div className="text-sm font-bold italic bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
+  <ul className='text-center text-customPurple space-y-1'>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Hasil estetik</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Jahitan minim</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Boleh kena air setelah 24 jam</li>
@@ -180,9 +181,9 @@ export default function Home() {
   </div>
 </div>
       
-      <img src="/laser.png" alt="Waves SVG" className='w-3/4 ml-10' />
-      <div className="bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
-  <ul className='text-center text-customPurple'>
+<Image src="/laser.png" width={500} height={500} alt="Waves SVG" className='p-8 mx-auto' />
+      <div className="text-sm font-bold italic bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
+  <ul className='text-center text-customPurple space-y-1'>
     <li><FaCheckCircle className="inline text-gray-400 mr-2"/>Tetap ada proses jahit</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Minim pendarahan</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Boleh kena air setelah 24 jam</li>
@@ -236,12 +237,12 @@ export default function Home() {
   </div>
 </div>
       
-      <img src="/rocket.png" alt="Waves SVG" className='w-3/4 ml-10' />
+<Image src="/rocket.png" width={500} height={500} alt="Waves SVG" className='p-8 mx-auto' />
 
-      <div className="bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
-  <ul className='text-center text-customPurple'>
-    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Terpasang klamp selama5 hari</li>
+      <div className="text-sm font-bold italic bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
+  <ul className='text-center text-customPurple space-y-1'>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tanpa jahit</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Terpasang klamp selama5 hari</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Hasil estetik</li>
     <li><FaCheckCircle className="inline text-customGreen mr-2"/>Boleh kena air</li>
     <li><FaCheckCircle className="inline text-gray-400 mr-2"/>Wajib kontrol di hari ke-5</li>
@@ -281,8 +282,146 @@ export default function Home() {
         <li>: Rp 3.000.000</li>
         </ul>
     </div>
-
     </div>
+
+    <div className='bg-white relative'>
+        <img src="/wavegreen.svg" alt="Waves SVG" className='w-full' />
+
+      <div className="flex items-center mb-5">
+      <FaCircle className="text-customGreen text-xl mr-2 ml-3" />
+  <p className="font-bold italic text-2xl text-customPurple">Sumo</p>
+  <div className="bg-customGreen rounded-xl p-2 ml-2">
+    <p className="font-bold text-2xl text-white">khusus</p>
+  </div>
+</div>
+      
+<Image src="/gemuk.png" width={500} height={500} alt="Waves SVG" className='p-8 mx-auto' />
+      <div className="text-sm font-bold italic bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
+  <ul className='text-center text-customPurple space-y-1'>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Solusi untuk anak gemuk / kondisi khusus</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Mencegah terkunci kembali</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Boleh kena air setelah 24 jam</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tanpa perban</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tidak wajib kontrol</li>
+  </ul>
+</div>
+      <div>
+      <p className='font-bold text-lg text-center text-customPurple ml-5 mt-10 mb-7'> Alat Pengerjaan </p>
+      <div className='flex items-center justify-center relative mx-3'>
+      <img src="/cauter.png" alt="Waves SVG" className='w-1/3 mr-5' />
+       <div className='w=2/3'>
+        <p className ='font-bold italic text-md text-center text-customPurple mb-2'>Electric Cauter</p>
+        <ul className='text-xs text-customPurple'>
+        <li>Alat khitan yang memanfaatkan energi panas untuk meminimalisir pendarahan saat tindakan</li>
+        </ul>
+    </div>
+    </div>
+    <div className='flex items-center justify-center relative mx-3 mb-10' >
+       <div className='w=2/3 mr-3'>
+        <p className ='font-bold italic text-md text-center text-customPurple mb-2'>Liquidseal</p>
+        <ul className='text-xs text-customPurple'>
+        <li>Cairan pengganti perban yang sekaligus melindungi luka agar aman terkena air</li>
+        </ul>
+    </div>
+    <img src="/lem.png" alt="Waves SVG" className='w-1/3 mt-10' />
+    </div>
+    </div>
+    <div className='flex mb-10'>
+    <ul className='w-1/8 text-xs font-bold text-customPurple ml-5 '>
+        <li>0-12 Tahun</li>
+        <li>12 Tahun -21 Tahun</li>
+        <li>21 Tahun keatas</li>
+        </ul>
+        <ul className='w-1/8 text-xs font-bold text-customPurple ml-10 '>
+        <li>: Rp 2.250.000</li>
+        <li>: Rp 2.250.000</li>
+        <li>: Rp 3.000.000</li>
+        </ul>
+    </div>
+    </div>
+
+    <div className='bg-customPurple relative'>
+        <img src="/waves.svg" alt="Waves SVG" className='w-full' />
+
+      <div className="flex items-center mb-5">
+      <FaCircle className="text-customGreen text-xl mr-2 ml-3" />
+  <p className="font-bold italic text-2xl text-white">Sumo</p>
+  <div className="bg-customGreen rounded-xl p-2 ml-2">
+    <p className="font-bold text-2xl text-white">Stapler</p>
+  </div>
+</div>
+      
+<Image src="/shield.png" width={500} height={500} alt="Waves SVG" className='p-5 mx-auto' />
+
+      <div className="text-sm font-bold italic bg-white p-5 rounded-tl-[30%] rounded-tr-[40%] rounded-bl-[40%] rounded-br-[30%] shadow-lg mx-10 my-5">
+  <ul className='text-center text-customPurple space-y-1'>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tanpa jahit</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Menggunakan silikon</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Boleh kena air setelah 24 jam</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tanpa perban</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tidak wajib kontrol</li>
+  </ul>
+</div>
+<div>
+      <p className='font-bold text-lg text-center text-white ml-5 mt-10 mb-7'> Alat Pengerjaan </p>
+      <div className='flex items-center justify-center relative mx-3'>
+      <img src="/stapler.png" alt="Waves SVG" className='w-1/3 mr-5' />
+       <div className='w=2/3'>
+        <p className ='font-bold italic text-md text-center text-white mb-2'>Stapler</p>
+        <ul className='text-xs text-white'>
+        <li>Alat khitan otomatis yang secara bersamaan dapat memotong kulup serta memasangkan silikon sebagai pengganti jahitan pada luka sunat</li>
+        <li className='mt-5'>Silikon akan lepas dengan sendirinya seiring proses penyembuhan</li>
+        </ul>
+    </div>
+    </div>
+    <div className='flex items-center justify-center relative mx-3 mb-10' >
+       <div className='w=2/3 mr-3'>
+        <p className ='font-bold italic text-md text-center text-white mb-2'>Liquidseal</p>
+        <ul className='text-xs text-white'>
+        <li>Cairan pengganti perban yang sekaligus melindungi luka agar aman terkena air</li>
+        </ul>
+    </div>
+    <img src="/lem.png" alt="Waves SVG" className='w-1/3 mt-10' />
+    </div>
+    </div>
+    <div className='flex mb-10'>
+    <ul className='w-1/8 text-xs font-bold text-white ml-5 '>
+        <li>0-12 Tahun</li>
+        <li>12 Tahun -21 Tahun</li>
+        <li>21 Tahun keatas</li>
+        </ul>
+        <ul className='w-1/8 text-xs font-bold text-white ml-10 '>
+        <li>: Rp 2.250.000</li>
+        <li>: Rp 2.250.000</li>
+        <li>: Rp 3.000.000</li>
+        </ul>
+    </div>
+    </div>
+
+    <div className='bg-white relative'>
+        <img src="/wavepurple.svg" alt="Waves SVG" className='w-full' />
+
+      <div className="flex items-center mb-10">
+      <FaCircle className="text-customGreen text-xl mr-2 ml-3" />
+  <p className="font-bold italic text-2xl text-customPurple">Bius</p>
+  <div className="bg-customGreen rounded-xl p-2 ml-2">
+    <p className="font-bold text-2xl text-white">Modern</p>
+  </div>
+</div>
+      <h2 className='font-bold text-center px-5 text-customPurple italic'>Memasukan cairan bius dengan memanfaatkan tekanan</h2>
+      <Image src="/comfort.png" width={500} height={500} alt="Waves SVG" className='py-5 px-8 mx-auto' />
+      <div className="text-xs font-semibold italic ml-5 mt-5">
+  <ul className='text-customPurple space-y-1'>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Tidak ada jarum / bendatajam yang menyentuh kulit</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Rasa nyeri lebih minim dibanding bius dengan suntikkan</li>
+    <li><FaCheckCircle className="inline text-customGreen mr-2"/>Efektifitas sama dengan bius suntik</li>
+  </ul>
+</div>
+    <div className='flex text-ceter font-bold italic text-customPurple text-xs mb-20 px-5 mt-10 ml-3'>
+    <p> *Penggunaan bius modern dikenakan biaya tambahan Rp. 250.000 </p>
+    </div>
+    </div>
+
 
     </div>
             )}
