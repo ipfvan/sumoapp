@@ -115,7 +115,7 @@ const RegistrationCiledug = () => {
     try {
       axios.post('/api/ciledug/pasien', data)
 
-      const socket = io('http://192.168.1.5:3001');
+      const socket = io('http://localhost:3001');
       const notificationData = {
         title: 'Pendaftaran Pasien Baru',
         body: 'Pasien baru telah terdaftar.',
